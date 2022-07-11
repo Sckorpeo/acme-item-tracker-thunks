@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// <App/> commponent Thinks --------------------------------------------
 const loadData = () => {
 	return async (dispatch) => {
 		const responses = await Promise.all([
@@ -11,6 +12,7 @@ const loadData = () => {
 	}
 }
 
+// <Things/> component Thunks --------------------------------------------
 const updateThing = (thing) => {
 	return async (dispatch) => {
 		thing = (await axios.put(`/api/things/${thing.id}`, thing)).data;
@@ -25,6 +27,7 @@ const deleteThing = (thing) => {
 	};
 };
 
+// <Users/> component Thunks --------------------------------------------
 const deleteUser = (user) => {
 	return async (dispatch) => {
 		await axios.delete(`/api/users/${user.id}`);
