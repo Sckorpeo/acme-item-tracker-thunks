@@ -4,30 +4,34 @@ const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/the
 const { STRING, INTEGER } = Sequelize;
 
 const User = conn.define('user', {
-  name: {
-    type: STRING 
-  }
+	name: {
+		type: STRING
+	},
+	ranking: {
+		type: INTEGER,
+		defaultValue: 5
+	}
 });
 
 const Thing = conn.define('thing', {
-  name: {
-    type: STRING 
-  },
-  ranking: {
-    type: INTEGER,
-    defaultValue: 1
-  }
+	name: {
+		type: STRING
+	},
+	ranking: {
+		type: INTEGER,
+		defaultValue: 1
+	}
 });
 
 Thing.belongsTo(User);
 Thing.addHook('beforeValidate', (thing) => {
-  if(!thing.userId){
-    thing.userId = null;
-  }
+	if (!thing.userId) {
+		thing.userId = null;
+	}
 });
 
 module.exports = {
-  conn,
-  User,
-  Thing
+	conn,
+	User,
+	Thing
 };

@@ -47,11 +47,19 @@ const removeThingFromUser = (thing) => {
 	}
 }
 
+const updateUser = (user) => {
+	return async (dispatch) => {
+		user = (await axios.put(`/api/users/${user.id}`, user)).data;
+		dispatch({ type: 'UPDATE_USER', user });
+	};
+};
+
 export {
 	loadData,
 	deleteThing,
 	updateThing,
 	deleteUser,
 	createUser,
-	removeThingFromUser
+	removeThingFromUser,
+	updateUser
 }

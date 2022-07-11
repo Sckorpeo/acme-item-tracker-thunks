@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { deleteUser, createUser, removeThingFromUser } from './api-calls-thunks';
+import { deleteUser, createUser, removeThingFromUser, updateUser } from './api-calls-thunks';
 
-const Users = ({ users, createUser, deleteUser, things, removeThingFromUser }) => {
+const Users = ({ users, createUser, deleteUser, things, removeThingFromUser, inc }) => {
 	return (
 		<div>
 			<h1>Users</h1>
@@ -13,7 +13,9 @@ const Users = ({ users, createUser, deleteUser, things, removeThingFromUser }) =
 					users.map(user => {
 						return (
 							<li key={user.id}>
-								{user.name}
+								{user.name} ({user.ranking})
+								<button onClick={() => inc(user, 1)}>+</button>
+								<button onClick={() => inc(user, -1)}>-</button>
 								<button onClick={() => deleteUser(user)}>x</button>
 								<ul>
 									{
@@ -56,6 +58,10 @@ const mapDispatch = (dispatch) => {
 		deleteUser: (user) => {
 			dispatch(deleteUser(user));
 		},
+		inc: (user, dir) => {
+			user = { ...user, ranking: user.ranking + dir };
+			dispatch(updateUser(user));
+		}
 	};
 }
 
