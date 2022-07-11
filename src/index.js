@@ -11,7 +11,7 @@ import Home from './Home';
 
 // Internal Imports
 import store from './store';
-import { loadData } from './api-calls';
+import { loadData } from './api-calls-thunks';
 
 
 class _App extends Component {
